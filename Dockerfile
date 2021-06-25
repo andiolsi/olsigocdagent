@@ -59,9 +59,11 @@ COPY --chown=go:root agent-bootstrapper-logback-include.xml agent-launcher-logba
 
 RUN chown -R go:root /docker-entrypoint.d /go /godata /docker-entrypoint.sh \
     && chmod -R g=u /docker-entrypoint.d /go /godata /docker-entrypoint.sh
-
+RUN rm -f /usr/bin/yarn
 RUN curl -fsSL https://deb.nodesource.com/setup_16.x | bash -
 RUN apt-get install -y nodejs
+
+RUN npm install -g yarn
 
 ENTRYPOINT ["/docker-entrypoint.sh"]
 
